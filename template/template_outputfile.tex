@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper,margin=1cm,landscape]{geometry}
 \usepackage{multicol}
+\usepackage{float} %figures in multicol
 
 \usepackage{hyperref} %references
 \usepackage{longtable,booktabs} %rables
@@ -9,14 +10,18 @@
 \usepackage[normalem]{ulem} %strikeout
 \usepackage{amssymb,amsmath} %math
 
+% Commands from default Pandoc Latex Template
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
 % Custom Commands (prefixed with mez)
 \newcommand{\mezdoctitle}[1]{\textbf{#1}}
 
 \begin{document}
-	
-	\begin{multicols}{3}
+    \raggedcolumns
+	\begin{multicols*}{3}
 		% content_placeholder
-	\end{multicols}
+	\end{multicols*}
 	
 \end{document}
 

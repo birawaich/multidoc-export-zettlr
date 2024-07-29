@@ -3,6 +3,10 @@ title: "Sample 3"
 id: 20240728195936
 ---
 
+This would be a mermaid graph. But this is also not rendered in either the implemented export or print…
+
+# The Diagram
+
 ```mermaid
 graph LR;
 	dist(Disturbances)
@@ -14,3 +18,9 @@ graph LR;
     plt == "actuation/input" ==> ctr
     ctr --> out
 ```
+
+# Heading 1
+
+Reference to [[20240728173317]] Sample 1 and [[20240728223001]] Sample 4: Math Test.
+
+This Reference points outside! [[20240315122442]] Secrets

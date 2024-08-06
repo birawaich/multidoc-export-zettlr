@@ -28,6 +28,7 @@
 
 % define some colors
 \definecolor{zettlrdocument}{RGB}{222, 222, 222}
+\definecolor{linkinternal}{RGB}{0, 0, 222}
 
 %%% COMMANDS
 
@@ -42,6 +43,8 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 % Custom Commands (prefixed with mez)
+
+% Title of of a Markdown File
 \newcommand{\mezdoctitle}[1]{%
 	\par\noindent
 	\colorbox{zettlrdocument}{%
@@ -50,6 +53,11 @@
 		}
 	}
 }
+% Internal Reference (replacing `[[14DIGITUUID]]`)
+\newcommand{\mezintreference}[0]{%
+	\textcolor{linkinternal}{$\hookrightarrow$}
+}
+
 
 %%% META
 \title{%%<TITLE>%%}
@@ -74,9 +82,14 @@
 
         %makes compressed title
 		\makeatletter 
-		{\centering {\huge \@title}\par\vspace{4.2pt}
-		\textcopyleft \@author{} $|$ \@date\par}
-		\makeatother
+		{\centering {\huge \@title}\par
+        \vspace{4.2pt}
+		\textcopyleft \@author{} $|$ \@date\par
+        \vspace{4.2pt}
+        \tiny{created with % 
+            \href{https://github.com/birawaich/multidoc-export-zettlr}{Multidoc Export} %
+            for \href{https://www.zettlr.com/}{Zettlr}}\par}
+		\makeatother        
         \vspace{6.9pt}
 
 

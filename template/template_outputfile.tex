@@ -9,10 +9,29 @@
 \usepackage{longtable,booktabs} %rables
 \usepackage{graphicx} %pictures
 \usepackage[normalem]{ulem} %strikeout
-\usepackage{amssymb,amsmath} %math
+\usepackage{amssymb} %math
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max} %argmin operator operator
+\DeclareMathOperator*{\argmin}{arg\,min} %argmin operator
 \usepackage{mathtools} %more math
+\usepackage{bm} %bm for math
 
 \usepackage{textcomp} %for copyleft symbol
+
+%allow for 10 Deep list and always use a bullet
+\usepackage{enumitem}
+\setlistdepth{10}
+\setlist[itemize,1]{label=$\bullet$}
+\setlist[itemize,2]{label=$\bullet$}
+\setlist[itemize,3]{label=$\bullet$}
+\setlist[itemize,4]{label=$\bullet$}
+\setlist[itemize,5]{label=$\bullet$}
+\setlist[itemize,6]{label=$\bullet$}
+\setlist[itemize,7]{label=$\bullet$}
+\setlist[itemize,8]{label=$\bullet$}
+\setlist[itemize,9]{label=$\bullet$}
+\setlist[itemize,10]{label=$\bullet$}
+\renewlist{itemize}{itemize}{10}
 
 % make document compact		
 \usepackage[compact]{titlesec}

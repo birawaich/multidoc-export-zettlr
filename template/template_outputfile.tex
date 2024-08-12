@@ -16,6 +16,7 @@
 \usepackage{mathtools} %more math
 \usepackage{bm} %bm for math
 
+\usepackage[T1]{fontenc} %for encoding of \guilsinglright symbol
 \usepackage{textcomp} %for copyleft symbol
 
 %allow for 10 Deep list and always use a bullet
@@ -44,6 +45,35 @@
 
 %custom date format
 \usepackage[english]{datetime2}
+
+%custom title sections
+\usepackage{titlesec}
+\titleformat{\section}
+    {\bfseries}         % Format: size and style
+    {\hspace{6.9mm}\guilsinglright\guilsinglright\guilsinglright}     % Section number format
+    {0.3em}             % Space between section number and title
+    {\underline}        % Code before the title
+\titleformat{\subsection}
+    {\bfseries} 
+    {\hspace{13.8mm}\guilsinglright\guilsinglright}
+    {0.3em}
+    {\underline}                
+\titleformat{\subsubsection}
+    {\bfseries} 
+    {\hspace{20.7mm}\guilsinglright}    
+    {0.3em}            
+    {\underline}                
+\titleformat{\paragraph}
+    {\bfseries}
+    {}
+    {0.3em}
+    {\underline}
+\titleformat{\subparagraph}
+    {\bfseries}
+    {}
+    {0.3em}
+    {}
+
 
 % define some colors
 \definecolor{zettlrdocument}{RGB}{222, 222, 222}
@@ -89,8 +119,6 @@
 
 \begin{document}
     \DTMsetdatestyle{iso}
-
-    \setcounter{secnumdepth}{0} %no enumeration of sections
     
     %column settings
     \raggedcolumns

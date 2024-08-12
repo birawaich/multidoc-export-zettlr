@@ -1,10 +1,11 @@
---filter to add the modified resource link to images as later used for latex
+-- filter to add the relative path from the current directory to the image
+-- same as "mod-reference-path-resources" but useses other path!
 
 local prefix = "" --default path prefix
 
 function Meta(meta)
-  if meta.resource_path_mod then
-    prefix = pandoc.utils.stringify(meta.resource_path_mod)
+  if meta.resource_path_mod_curdir then
+    prefix = pandoc.utils.stringify(meta.resource_path_mod_curdir)
     -- print("%Prefix set to: " .. prefix) -- Debug output
   end
 end

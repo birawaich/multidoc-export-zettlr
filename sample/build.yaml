@@ -1,0 +1,10 @@
+title: "Sample Multidoc Zettlr Export"
+author: "Arthur Dent"
+filepath_source: "sample/"
+filepath_destination: "out/"
+include: [
+    "sample1.md",
+    "sample2.md",
+    "sample3.md",
+    "sample4.md"
+]

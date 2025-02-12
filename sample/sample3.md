@@ -1,6 +1,6 @@
 ---
 title: "Sample 3"
-id: 20240728195936
+id: "20240728195936"
 ---
 
 This would be a mermaid graph. But this is also not rendered in either the implemented export or print…

@@ -1,6 +1,6 @@
 ---
 title: "Sample 1"
-id: 20240728173317
+id: "20240728173317"
 ---
 
 This is Honestly how they all look like.

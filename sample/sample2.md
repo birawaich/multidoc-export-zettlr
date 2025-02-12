@@ -1,6 +1,6 @@
 ---
 title: "Sample 2"
-id: 20240728173503
+id: "20240728173503"
 ---
 
 I am another sample and I sport a secret → images!

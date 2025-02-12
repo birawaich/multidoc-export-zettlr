@@ -191,6 +191,10 @@ class SingleDocument:
             metadata: dict = self._metadata
             if "title" in metadata:
                 header += "\\mezdoctitle{"+metadata["title"]+"}\n\n"
+            if "id" in metadata:
+                # add label for references from ID
+                id = self._label_from_id(str(metadata["id"]))
+                header += "\\label{"+id+"}\n\n"
 
         converted = header + self._latex_raw
 
@@ -270,8 +274,18 @@ class SingleDocument:
     def _replace_zettler_internal_link_with_command(self, latex_text: str) -> str:
         # replaces `[[20240719012226]]` with the latex command for it
 
-        pattern = re.compile(r'\{\[\}\{\[\}\d{14}\{\]\}\{\]\}') #note: the [[ ]] are compiled into {[}... for soem reason
-        # Replace the pattern with \somecommand
-        result = pattern.sub(r'\\mezintreference', latex_text)
+        pattern = re.compile(r'\{\[\}\{\[\}(\d{14})\{\]\}\{\]\}') #note: the [[ ]] are compiled into {[}... for soem reason
+        
+        # replace function to use sub directly
+        def local_replace_func(match):
+            id = match.group(1)
+            return "\hyperref["+self._label_from_id(id)+"]{\mezintreference}" #requires hyperref document
+
+        # search for all matches
+        result = pattern.sub(local_replace_func, latex_text)
 
         return result
+    
+    def _label_from_id(self, id: str) -> str:
+        """Returns the label for a single document from the id"""
+        return "singledocid:"+id

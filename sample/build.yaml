@@ -1,10 +1,23 @@
-title: "Sample Multidoc Zettlr Export"
-author: "Arthur Dent"
-filepath_source: "sample/"
-filepath_destination: "out/"
+!BuildDescription
+title: "Sample Export"
+author_name: "Arthur Dent"
+author_email: "myemail@mydomain.org"
+filepath_source: ""
+filepath_destination: "../out"
 include: [
     "sample1.md",
-    "sample2.md",
-    "sample3.md",
-    "sample4.md"
+    !Section {
+        title: "Supersection 1",
+        content: [
+            "sample2.md",
+            "sample3.md"
+        ]
+    },
+    !Section {
+        title: "Supersection 2",
+        content: [
+            "sample4.md",
+            "../sample_alternativesource/distributed-gradient-descent.md"
+        ]
+    }
 ]

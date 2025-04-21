@@ -1,19 +1,46 @@
 import yaml
 
+class Section(yaml.YAMLObject):
+    """
+    YAML OBject to describe a section.
+    """
+    yaml_tag = u'!Section'
+
+    def __init__(self, title, content):
+        self.title = title #title of the section
+        self.content = content  #list of strings which are paths to files and/or sections
+
+    def __repr__(self):
+        return f"Section(title={self.title},...)"
+
+
 class BuildDescription(yaml.YAMLObject):
     """
     YAML Object to represent a build description.
 
     Allows for easy parsing of the build description files.
     """
-
     yaml_tag = u'!BuildDescription'
 
     def __init__(self,
-                 title, author_name, author_email):
+                 title,
+                 author_name,
+                 author_email,
+                 filepath_source,
+                 filepath_destination,
+                 include):
+        
+        #general metadata
         self.title = title #Title of the Build
         self.author_name = author_name #Name of the Author
         self.author_email = author_email #E-Mail of the Author
+
+        #general paths
+        self.filepath_source = filepath_source #source file path (relative to build file), paths at files will be relative to it!
+        self.filepath_destination = filepath_destination #destination file path (relative to build file), where files should be stored
+
+        #files
+        self.include = include #all files that need to be included: list of filepoths and/or sections
 
     def __repr__(self):
         """Official Way to print this object as a string."""
@@ -22,13 +49,35 @@ class BuildDescription(yaml.YAMLObject):
 ### TEMPORARY TESTING
 print("TEST START")
 
-test_yaml_str = """
---- !BuildDescription
-title: "Sample Export"
-author_name: "Arthur Dent"
-author_email: "myemail@mydomain.org"
-"""
+# test_yaml_str = """
+# !BuildDescription
+# title: "Sample Export"
+# author_name: "Arthur Dent"
+# author_email: "myemail@mydomain.org"
+# filepath_source: ""
+# filepath_destination: "../out"
+# include: [
+#     "sample1.md",
+#     !Section {
+#         title: "Supersection 1",
+#         content: [
+#             "sample2.md",
+#             "sample3.md"
+#         ]
+#     },
+#     !Section {
+#         title: "Supersection 2",
+#         content: [
+#             "sample4.md",
+#             "../sample_alternativesource/distributed-gradient-descent.md"
+#         ]
+#     }
+# ]
+# """
+# loaded_obj = yaml.load(test_yaml_str,Loader=yaml.Loader)
 
-loaded_obj = yaml.load(test_yaml_str,Loader=yaml.Loader)
+with open("sample/build.yaml", "r", encoding="utf-8") as f:
+    data = yaml.load(f, Loader=yaml.Loader)
+    print(data)
 
 print("TEST DONE")

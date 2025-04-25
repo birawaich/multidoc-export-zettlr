@@ -2,7 +2,7 @@
 title: "Sample Export"
 author_name: "Arthur Dent"
 author_email: "myemail@mydomain.org"
-filepath_source: ""
+filepath_source: "./"
 filepath_destination: "../out"
 include: [
     "sample1.md",
@@ -17,7 +17,6 @@ include: [
         title: "Supersection 2",
         content: [
             "sample4.md",
-            "../sample_alternativesource/distributed-gradient-descent.md"
         ]
     }
 ]

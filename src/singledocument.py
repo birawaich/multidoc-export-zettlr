@@ -16,7 +16,7 @@ class SingleDocument:
     
     Used to correctly link resources for Latex generation"""
 
-    verbose: bool = True
+    verbose: bool = False
     """Set to True for verbose info"""
 
     def __init__(self,filename: str):
@@ -71,7 +71,8 @@ class SingleDocument:
         if SingleDocument.verbose:
             print("Reading content of file "+self.filename+"...")
 
-        filepath = SingleDocument.filepath_source + self.filename
+        filepath = os.path.join(SingleDocument.filepath_source,
+                                self.filename)
         assert os.path.exists(filepath), \
             "Document "+filepath+" does not exist!"
         

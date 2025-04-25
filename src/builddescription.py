@@ -1,4 +1,6 @@
 import yaml
+import os.path
+import warnings
 
 class Section(yaml.YAMLObject):
     """
@@ -36,8 +38,8 @@ class BuildDescription(yaml.YAMLObject):
         self.author_email = author_email #E-Mail of the Author
 
         #general paths
-        self.filepath_source = filepath_source #source file path (relative to build file), paths at files will be relative to it!
-        self.filepath_destination = filepath_destination #destination file path (relative to build file), where files should be stored
+        self.filepath_source = filepath_source #source file path (relative to build file OR absolute), paths at files will be relative to it!
+        self.filepath_destination = filepath_destination #destination file path (relative to build file OR absolute), where files should be stored
 
         #files
         self.include = include #all files that need to be included: list of filepoths and/or sections
@@ -46,6 +48,30 @@ class BuildDescription(yaml.YAMLObject):
         """Official Way to print this object as a string."""
         return f"BuildDescrition(title={self.title},...)"
     
+    def make_filepath_sourcedest_absolute(self, anchorpoint):
+        """makes the filepath of the source and destination absolute (in case it was relative to anchorpoint)"""
+        is_destination_abs = os.path.isabs(self.filepath_destination)
+        is_source_abs = os.path.isabs(self.filepath_source)
+
+        if is_destination_abs and is_source_abs:
+            return
+
+        anchor_dir = os.path.abspath(os.path.dirname(anchorpoint))
+        if not os.path.isdir(anchor_dir):
+            warnings.warn("The path to which the source and destination path is relative is not valid! Will not modify paths.")
+    
+        # proceed
+        if not is_source_abs:
+            self.filepath_source = os.path.abspath(
+                os.path.join(anchor_dir,self.filepath_source)
+            )
+        if not is_destination_abs:
+            self.filepath_destination = os.path.abspath(
+                os.path.join(anchor_dir,self.filepath_destination)
+            )
+
+        return
+
 ### TEMPORARY TESTING
 print("TEST START")
 

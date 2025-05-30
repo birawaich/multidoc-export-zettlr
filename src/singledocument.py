@@ -2,6 +2,7 @@ import pypandoc
 import os
 import yaml
 import re
+from pylatexenc.latexencode import unicode_to_latex
 
 
 class SingleDocument:
@@ -191,7 +192,8 @@ class SingleDocument:
         if self._metadata:
             metadata: dict = self._metadata
             if "title" in metadata:
-                header += "\\mezdoctitle{"+metadata["title"]+"}\n\n"
+                title_str = unicode_to_latex(metadata["title"]) #escape text to be LaTex safe
+                header += "\\mezdoctitle{"+title_str+"}\n\n"
             if "id" in metadata:
                 # add label for references from ID
                 id = self._label_from_id(str(metadata["id"]))

@@ -7,7 +7,7 @@ def compile_latex(latex_content: str
                 , tex_filename: str='document.tex'
                 , pdf_filename: str='document.pdf') -> str:
     """
-    Compile a LaTeX file to a PDF using some engine (so far: pdflatex).
+    Compile a LaTeX file to a PDF using some engine (so far: lualatex).
 
     Args:
         tex_filepath (str): The path to the LaTeX (.tex) file to be compiled.
@@ -17,7 +17,7 @@ def compile_latex(latex_content: str
     Returns:
         str: The path to the generated PDF file if compilation is successful, None otherwise.
 
-    Note: Written with ChatGPT
+    Note: Written with ChatGPT; and modified
     """
 
     # Ensure the output directory exists
@@ -27,12 +27,22 @@ def compile_latex(latex_content: str
     tex_filepath = os.path.join(output_directory, tex_filename)
     with open(tex_filepath, 'w') as tex_file:
         tex_file.write(latex_content)
-    
-    # Compile the .tex file to a PDF using pdflatex
+
+    # get the current working direction and switch to output directory (as images are relative to it)
+    old_working_directory = os.getcwd()
+    os.chdir(output_directory)
+
+    # Compile the .tex file to a PDF using lualatex
     try:
-        process = subprocess.run(['pdflatex', '-halt-on-error'
-                                  , '-output-directory', output_directory, tex_filepath],
-                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        process = subprocess.run(['lualatex', #run luatex
+                                  '--shell-escape', #to be able to run minted or other stop
+                                  '-synctex=1', #to synch positions in the source to the PDF
+                                  '-halt-on-error', #replace with `-interaction=nonstopmode` to not halt on error
+                                  '-output-directory',
+                                  output_directory,
+                                  tex_filepath],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, text=True)
         
         # Check for errors
         if process.returncode != 0:
@@ -44,10 +54,12 @@ def compile_latex(latex_content: str
             print("Compilation successful")
         
         # Return the path to the generated PDF
+        os.chdir(old_working_directory)
         return os.path.join(output_directory, pdf_filename)
     
     except Exception as e:
         print(f"An error occurred: {e}")
+        os.chdir(old_working_directory)
         return None
 
 

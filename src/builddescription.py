@@ -73,37 +73,38 @@ class BuildDescription(yaml.YAMLObject):
         return
 
 ### TEMPORARY TESTING
-print("TEST START")
+if __name__ == "__main__":
+    print("TEST START")
 
-# test_yaml_str = """
-# !BuildDescription
-# title: "Sample Export"
-# author_name: "Arthur Dent"
-# author_email: "myemail@mydomain.org"
-# filepath_source: ""
-# filepath_destination: "../out"
-# include: [
-#     "sample1.md",
-#     !Section {
-#         title: "Supersection 1",
-#         content: [
-#             "sample2.md",
-#             "sample3.md"
-#         ]
-#     },
-#     !Section {
-#         title: "Supersection 2",
-#         content: [
-#             "sample4.md",
-#             "../sample_alternativesource/distributed-gradient-descent.md"
-#         ]
-#     }
-# ]
-# """
-# loaded_obj = yaml.load(test_yaml_str,Loader=yaml.Loader)
+    # test_yaml_str = """
+    # !BuildDescription
+    # title: "Sample Export"
+    # author_name: "Arthur Dent"
+    # author_email: "myemail@mydomain.org"
+    # filepath_source: ""
+    # filepath_destination: "../out"
+    # include: [
+    #     "sample1.md",
+    #     !Section {
+    #         title: "Supersection 1",
+    #         content: [
+    #             "sample2.md",
+    #             "sample3.md"
+    #         ]
+    #     },
+    #     !Section {
+    #         title: "Supersection 2",
+    #         content: [
+    #             "sample4.md",
+    #             "../sample_alternativesource/distributed-gradient-descent.md"
+    #         ]
+    #     }
+    # ]
+    # """
+    # loaded_obj = yaml.load(test_yaml_str,Loader=yaml.Loader)
 
-with open("sample/build.yaml", "r", encoding="utf-8") as f:
-    data = yaml.load(f, Loader=yaml.Loader)
-    print(data)
+    with open("sample/build.yaml", "r", encoding="utf-8") as f:
+        data = yaml.load(f, Loader=yaml.Loader)
+        print(data)
 
-print("TEST DONE")
+    print("TEST DONE")

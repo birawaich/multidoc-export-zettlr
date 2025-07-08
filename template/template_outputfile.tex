@@ -15,6 +15,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min} %argmin operator
 \usepackage{mathtools} %more math
 \usepackage{bm} %bm for math
+\usepackage{xfrac} %foor inline fractions
 
 \usepackage[T1]{fontenc} %for encoding of \guilsinglright symbol
 \usepackage{textcomp} %for copyleft symbol
@@ -61,16 +62,20 @@
 \usepackage{enumitem}
 \setlistdepth{10}
 \setlist[itemize,1]{label=$\bullet$}
-\setlist[itemize,2]{label=$\bullet$}
-\setlist[itemize,3]{label=$\bullet$}
-\setlist[itemize,4]{label=$\bullet$}
-\setlist[itemize,5]{label=$\bullet$}
-\setlist[itemize,6]{label=$\bullet$}
-\setlist[itemize,7]{label=$\bullet$}
-\setlist[itemize,8]{label=$\bullet$}
-\setlist[itemize,9]{label=$\bullet$}
-\setlist[itemize,10]{label=$\bullet$}
+\setlist[itemize,2]{label=$\circ$}
+\setlist[itemize,3]{label=--}
+\setlist[itemize,4]{label=--}
+\setlist[itemize,5]{label=--}
+\setlist[itemize,6]{label=--}
+\setlist[itemize,7]{label=--}
+\setlist[itemize,8]{label=--}
+\setlist[itemize,9]{label=--}
+\setlist[itemize,10]{label=--}
 \renewlist{itemize}{itemize}{10}
+
+% Handle Paragraph indent
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.42em}
 
 % make document compact		
 \usepackage[compact]{titlesec}

@@ -140,8 +140,11 @@ class SingleDocument:
         converted = converted.replace('\u2264', '$\leq$')#≤ (U+2264)
         converted = converted.replace('\u2265', '$\geq$')#≥ (U+2265)
         converted = converted.replace('\u2260', '$\\neq$')#≠ (U+2260)
-        converted = converted.replace('\u2154', '$\\frac{2}{3}$')#⅔ (U+2154)
-        converted = converted.replace('\u2153', '$\\frac{1}{3}$')#⅓ (U+2153)
+        converted = converted.replace('\u2154', '$\sfrac{2}{3}$')#⅔ (U+2154)
+        converted = converted.replace('\u2153', '$\sfrac{1}{3}$')#⅓ (U+2153)
+        converted = converted.replace('\u2192', '$\\rightarrow$')#→
+        converted = converted.replace('\u2190', '$\leftarrow$')#←
+        converted = converted.replace('\u00B1', '$\pm$')#±
 
         ### STORING
         self._markdown_mod = converted

@@ -1,5 +1,5 @@
 ---
-title: "Sample 1"
+title: "Sample 1: Headings"
 id: "20240728173317"
 ---
 
@@ -20,6 +20,8 @@ More text! And a formula!
 $$e^{i\pi}-1=0$$
 
 ### Heading 3
+
+Bullet Lists seem to be the workhorse of notes. This is how the look like!
 
 - I have a list
     - with a list in it
@@ -44,11 +46,26 @@ $$e^{i\pi}-1=0$$
 - with a bullet
 	<!--and a comment that is complied! AHHH!-->
 
-#### Heading 4
+#### Special Characters
 
 <!--rendered as paragraph-->
 
-I am very much not important.
+The following Unicode Characters are rendered! In brackets is what they are rendered as.
+
+
+-   → (`$\\rightarrow$`)
+-   ← (`$\leftarrow$`)
+-   ↝ (`$\leadsto$`)
+-   ⇒ (`$\Rightarrow$`)
+-   ⇐ (`$\Leftarrow$`)
+-   ↔ (`$\leftrightarrow$`)
+-   ⇔ (`$\Leftrightarrow$`)
+-   ≤ (`$\leq$`)
+-   ≥ (`\geq$`)
+-   ≠ (`$\\neq$`)
+-   ⅔ (`$\sfrac{2}{3}$`)
+-   ⅓ (`$\sfrac{1}{3}$`)
+-   ± (`$\pm`)
 
 ##### Heading 5
 

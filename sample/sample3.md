@@ -1,5 +1,5 @@
 ---
-title: "Sample 3"
+title: "Sample 3: More advanced Topics"
 id: "20240728195936"
 ---
 
@@ -19,7 +19,7 @@ graph LR;
     ctr --> out
 ```
 
-# Heading 1
+# Zettelkasten References
 
 Reference to [[20240728173317]] Sample 1 and [[20240728223001]] Sample 4: Math Test.
 

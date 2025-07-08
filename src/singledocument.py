@@ -6,23 +6,48 @@ from pylatexenc.latexencode import unicode_to_latex
 
 
 class SingleDocument:
-    """Class holding information for a single document"""
-
-    ### CLASS VARIABLES
-    filepath_source: str = ''
-    """Path to which the filename is relative"""
-
-    filepath_output: str = ''
-    """Filepath relative to CWD where output files will lie
+    """
+    Class holding information for a single document
     
+    Attributes
+    ----------
+    _filename: str
+        (private) Filename of the markdown document
+    _filepath_source: str
+        (private) Filepath of the source (directory)
+    
+    """
+
+
+    FILEPATH_OUTPUT: str = ''
+    """Filepath relative to CWD where output files will lie
     Used to correctly link resources for Latex generation"""
 
-    verbose: bool = False
+    FILEPATH_SOURCE: str = ''
+    """Absolute Filepath from buildescriptor"""
+
+    VERBOSE: bool = False
     """Set to True for verbose info"""
 
-    def __init__(self,filename: str):
+    def __init__(self,
+                 filepath: str):
+        """
+        Initialization
+
+        Parameters
+        ----------
+        filepath: str,
+            path to the file directly form the build descriptor file
+        
+        """
         # set instance variables
-        self.filename = filename
+        self._filename: str = os.path.basename(filepath)
+        self._filepath_source: str = os.path.dirname(
+            os.path.abspath(
+                os.path.join(SingleDocument.FILEPATH_SOURCE,filepath)
+            )
+        )    
+
         self._markdown_raw: str = None #markdown file content as text (raw = unmodified)
         self._markdown_mod: str = None #markdown file content as text (modified)
         self._latex_raw: str = None #latex representation of file (raw = unmodified)
@@ -69,11 +94,11 @@ class SingleDocument:
         """Reads the file specified by the filename, stores it, and returns it
         
         also loads the metadata"""
-        if SingleDocument.verbose:
-            print("Reading content of file "+self.filename+"...")
+        if SingleDocument.VERBOSE:
+            print("Reading content of file "+self._filename+"...")
 
-        filepath = os.path.join(SingleDocument.filepath_source,
-                                self.filename)
+        filepath = os.path.join(self._filepath_source,
+                                self._filename)
         assert os.path.exists(filepath), \
             "Document "+filepath+" does not exist!"
         
@@ -89,8 +114,8 @@ class SingleDocument:
     
     def _modify_markdown(self) -> str:
         """Modifies the raw markdown string, stores it, and returns it"""
-        if SingleDocument.verbose:
-            print("Mopdifying raw markdown of file "+self.filename+"...")
+        if SingleDocument.VERBOSE:
+            print("Mopdifying raw markdown of file "+self._filename+"...")
 
         assert self._markdown_raw is not None, "need to load raw markdown first!"
 
@@ -98,11 +123,11 @@ class SingleDocument:
         converted = self._markdown_raw
 
         # add relative path to metadata
-        relative_path = os.path.relpath(self.filepath_source, start=self.filepath_output)
+        relative_path = os.path.relpath(self._filepath_source, start=self.FILEPATH_OUTPUT)
         converted = self._extend_yaml_header(content=converted, new_key="resource_path_mod"
                                              ,new_value=relative_path)
         # add relative path from current directory
-        relative_path_curdir = os.path.relpath(self.filepath_source)
+        relative_path_curdir = os.path.relpath(self._filepath_source)
         converted = self._extend_yaml_header(content=converted, new_key="resource_path_mod_curdir"
                                              ,new_value=relative_path_curdir)
         
@@ -162,8 +187,8 @@ class SingleDocument:
     
     def _convert_to_latex(self) -> str:
         """Converts the modified markdown to latex, stores it, and returns it"""
-        if SingleDocument.verbose:
-            print("Converting modified markdown of file "+self.filename+" to Latex...")
+        if SingleDocument.VERBOSE:
+            print("Converting modified markdown of file "+self._filename+" to Latex...")
 
         assert self._markdown_mod  is not None, "need to have a modified markdown text first!"
 
@@ -179,8 +204,8 @@ class SingleDocument:
     
     def _modify_latex(self) -> str:
         """Modifies the raw latex string, stores it, and returns it"""
-        if SingleDocument.verbose:
-            print("Modifying raw latex of file "+self.filename+"...")
+        if SingleDocument.VERBOSE:
+            print("Modifying raw latex of file "+self._filename+"...")
 
         assert self._latex_raw is not None, "need to convert to latex first!"
 

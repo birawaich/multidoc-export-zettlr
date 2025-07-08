@@ -44,8 +44,8 @@ class DocumentColllection:
         
         # Note: Rebuilding old code, can be adjusted
 
-        SingleDocument.filepath_source = self.builddescription.filepath_source
-        SingleDocument.filepath_output = self.builddescription.filepath_destination
+        SingleDocument.FILEPATH_SOURCE = self.builddescription.filepath_source
+        SingleDocument.FILEPATH_OUTPUT = self.builddescription.filepath_destination
 
         filenames = self.extract_filenames()
         documents = []
@@ -63,7 +63,7 @@ class DocumentColllection:
             compile_latex(latex_total
                         ,output_directory=self.builddescription.filepath_destination)
 
-        return
+        return 
 
 
     ### PRIVATE
@@ -80,9 +80,14 @@ class DocumentColllection:
 
         # load (and watch for errors)
         with open(self.path_builddescription, "r", encoding="utf-8") as f:
-            data = yaml.load(f,Loader=yaml.Loader)
+            try:
+                data = yaml.load(f, Loader=yaml.Loader)
+            except yaml.YAMLError as e:
+                raise ValueError(f"The Build Descriptor File is faulty: {e}")
+                
             if type(data) != BuildDescription: #check if it is the right YAML object (if this hits, probably the YAML file is formatted wrongly)
                 raise ValueError(f"The Build Descriptor File was is not of the right type but it is a {type(data)}")
+            
             self.builddescription = data                
 
         if DocumentColllection.verbose:

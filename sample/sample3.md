@@ -31,3 +31,9 @@ This Reference points outside! [[20240315122442]] Secrets
 - [ ] Check if To Do list work
     - [ ] even if indented
     - [x] and checked
+
+# Emojis!🎉
+
+What was missing?🕵️
+
+Yes! Emojis!🐳 So professional!💥

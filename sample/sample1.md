@@ -5,6 +5,10 @@ id: "20240728173317"
 
 This is Honestly how they all look like.
 
+---
+
+<!--I AM A COMMENT. YOU WON'T SEE ME IN THE EXPORT.-->
+
 # Heading 1
 
 More text that I could not be bother to let ChatGPT create.
@@ -15,7 +19,7 @@ More text! And a formula!
 
 $$e^{i\pi}-1=0$$
 
-### Headiung 3
+### Heading 3
 
 - I have a list
     - with a list in it
@@ -24,7 +28,7 @@ $$e^{i\pi}-1=0$$
         - with
         - more
         - bullets
-    - but it collses
+    - but it closes
 - eventually
     - might
         - go
@@ -35,6 +39,10 @@ $$e^{i\pi}-1=0$$
                     - so
              
 ...and since this is sample code meant to test out the document:
+
+- This is another list
+- with a bullet
+	<!--and a comment that is complied! AHHH!-->
 
 #### Heading 4
 

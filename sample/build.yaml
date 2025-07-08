@@ -17,6 +17,7 @@ include: [
         title: "Supersection 2",
         content: [
             "sample4.md",
+            "../sample_alternativesource/distributed-gradient-descent.md"
         ]
     }
 ]

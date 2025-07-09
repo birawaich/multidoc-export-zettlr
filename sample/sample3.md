@@ -37,3 +37,14 @@ This Reference points outside! [[20240315122442]] Secrets
 What was missing?🕵️
 
 Yes! Emojis!🐳 So professional!💥
+
+# To Dos and Questions
+
+You know what happens a lot?
+
+Yes! You have something todo! Ie. a #todo[Add a more convicing example.]
+
+Somethines, there is also questions. #question[aren't those todos with an extra step?]
+
+-   And there is also further tags like #random #whatever[with text]
+-   ... some crazy notes might even contain math #todo[is $\sum_{i=1}^n x_i$ really what is meant here?]

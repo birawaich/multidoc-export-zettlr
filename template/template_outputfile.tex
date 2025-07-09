@@ -121,6 +121,15 @@
 % define some colors
 \definecolor{zettlrdocument}{RGB}{222, 222, 222}
 \definecolor{linkinternal}{RGB}{0, 0, 222}
+\definecolor{tagquestion}{RGB}{124, 146, 216}
+\definecolor{tagtodo}{RGB}{255, 154, 47}
+\definecolor{tagunknown}{RGB}{80, 222, 136}
+
+% todo notes
+\usepackage[distanceNotesPageBorder=0cm,
+    minNoteWidth=0cm,
+    colorinlistoftodos]{luatodonotes}
+%without these values there would be some error - alternatively the page margins can be increased cf. https://mirror.foobar.to/CTAN/macros/luatex/latex/luatodonotes/luatodonotes.pdf
 
 %%% COMMANDS
 
@@ -184,9 +193,10 @@
 		\makeatother        
         \vspace{6.9pt}
 
-
 		%%<content_placeholder>%%
+
+        %%<LISTOFTODOS>%%
 	\end{multicols*}
-	
+
 \end{document}
 

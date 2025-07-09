@@ -26,6 +26,9 @@ class SingleDocument:
     FILEPATH_SOURCE: str = ''
     """Absolute Filepath from buildescriptor"""
 
+    SHOW_TAGS: bool = True
+    """Set to true to render tags like #todo"""
+
     VERBOSE: bool = False
     """Set to True for verbose info"""
 
@@ -239,6 +242,10 @@ class SingleDocument:
         # convert all internal refererences to the latex command
         converted = self._replace_zettler_internal_link_with_command(converted)
 
+        # handle the #tags
+        if SingleDocument.SHOW_TAGS:
+            converted = self._handle_tags(converted)
+
         ### STORING
         self._latex_mod = converted
         return converted
@@ -316,6 +323,42 @@ class SingleDocument:
         result = pattern.sub(local_replace_func, latex_text)
 
         return result
+    
+    def _handle_tags(self, latex_text: str) -> str:
+        """
+        Handle all tags defined by #TAGNAME or #TAGNAME[CONTENT can be long] in markdown file
+
+        Note: these are seen as \#TAGNAME or \#TAGNAME{[}CONTENT can be long{]} in converted latex file
+        """
+
+        pattern = re.compile(r'\\#(\w+)(?:\{\[\}(.*?)\{\]\})?',flags=re.DOTALL)
+
+        # local replace function
+        def local_replace_func(match):
+            tag = match.group(1)
+            content = match.group(2)
+            # Example replacement — modify as you wish:
+            return SingleDocument._latex_string_for_tag(tag,content)
+
+        return pattern.sub(local_replace_func, latex_text)
+
+    def _latex_string_for_tag(tag: str,
+                              content: str) -> str:
+        """returns a string for a certain tag, potentially with content
+        
+        Note: need to be inline as it is a multicol document"""
+        if tag.lower() == 'todo':
+            if content is None:
+                content = "Do something!"
+            return "\\todo[inline, color=tagtodo]{"+content.replace('\n',' ')+"}"
+        if tag.lower() == 'question':
+            if content is None:
+                content = "Ask something!"
+            return "\\todo[inline, color=tagquestion]{"+content.replace('\n',' ')+"}" 
+
+        if content is not None:
+            return "\\todo[inline, author="+tag+", color=tagunknown]{"+content.replace('\n',' ')+"}"
+        return "\\todo[inline, color=tagunknown]{"+tag+"}"
     
     def _label_from_id(self, id: str) -> str:
         """Returns the label for a single document from the id"""

@@ -46,6 +46,7 @@ class DocumentColllection:
 
         SingleDocument.FILEPATH_SOURCE = self.builddescription.filepath_source
         SingleDocument.FILEPATH_OUTPUT = self.builddescription.filepath_destination
+        SingleDocument.SHOW_TAGS = True
 
         filenames = self.extract_filenames()
         documents = []

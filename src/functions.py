@@ -93,4 +93,7 @@ def set_metadata_merged(text: str, author:str, title: str) -> str:
     text = text.replace('%%<TITLE>%%',title)
     text = text.replace('%%<AUTHOR>%%',author)
 
+    if SingleDocument.SHOW_TAGS:
+        text = text.replace('%%<LISTOFTODOS>%%','\listoftodos')
+
     return text

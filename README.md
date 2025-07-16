@@ -6,6 +6,7 @@ Export multiple markdown documents made in [Zettlr](https://github.com/Zettlr/Ze
 
 Status: In Development, adding things as I need/want them ;)
 Intend: Private use, feel free to use if it is useful for you too!  
+Entrypoint: `main.py`  
 
 ## Supported Features
 
@@ -64,17 +65,18 @@ Handling images is tricky due to different image locations as well as image heig
 
  ## To Do
 
--   Support Hierarchy
+-   [ ] Support Hierarchy
     Currently the hierarchy in the build descriptor file is ignored.
 -   Proper Table of Contents
-    -   Printed
-    -   Of PDF (currently it is a bit something)
+    -   [ ] Printed
+    -   [ ] Of PDF (currently it is a bit something)
 -   Touch Up on Template
-    -   Footer/Header
-    -   Handle wrapping of titles
--   Support exporting online short summaries
+    -   [ ] Footer/Header
+    -   [ ] Handle wrapping of titles
+-   [ ] Support exporting online short summaries
+-   [ ] Remove Legacy Workbench
 
 -   Nice To Have
-    -   Installation Guide (if anyone needs it incl. myself)
-    -   Proper Licensing
+    -   [ ] Installation Guide (if anyone needs it incl. myself)
+    -   [ ] Proper Licensing
 

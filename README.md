@@ -66,6 +66,12 @@ Handling images is tricky due to different image locations as well as image heig
 
 -   Support Hierarchy
     Currently the hierarchy in the build descriptor file is ignored.
+-   Proper Table of Contents
+    -   Printed
+    -   Of PDF (currently it is a bit something)
+-   Touch Up on Template
+    -   Footer/Header
+    -   Handle wrapping of titles
 -   Support exporting online short summaries
 
 -   Nice To Have

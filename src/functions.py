@@ -87,11 +87,15 @@ def merge_documents(documents: list[SingleDocument]) -> str:
 
     return merged
 
-def set_metadata_merged(text: str, author:str, title: str) -> str:
-    """set the author and the title metadat in the results"""
+def set_metadata_merged(text: str,
+                         author:str,
+                         email:str,
+                         title: str) -> str:
+    """set the author,email of author, and the title metadat in the results"""
 
     text = text.replace('%%<TITLE>%%',title)
     text = text.replace('%%<AUTHOR>%%',author)
+    text = text.replace('%%<EMAIL>%%',email)
 
     if SingleDocument.SHOW_TAGS:
         text = text.replace('%%<LISTOFTODOS>%%','\listoftodos')

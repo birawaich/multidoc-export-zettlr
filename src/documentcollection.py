@@ -57,6 +57,7 @@ class DocumentColllection:
         latex_total = merge_documents(documents=documents)
         latex_total = set_metadata_merged(latex_total,
                                           author=self.builddescription.author_name,
+                                          email=self.builddescription.author_email,
                                           title=self.builddescription.title)
 
     # Compile (2 times for correct references)

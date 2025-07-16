@@ -1,7 +1,7 @@
 !BuildDescription
 title: "Sample Export"
 author_name: "Arthur Dent"
-author_email: "myemail@mydomain.org"
+author_email: "arthur.dent@zz9pluralz.alpha"
 filepath_source: "./"
 filepath_destination: "../out"
 include: [

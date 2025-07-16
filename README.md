@@ -4,7 +4,7 @@ Multi Document Export for Zettlr Markdown Files.
 
 Export multiple markdown documents made in [Zettlr](https://github.com/Zettlr/Zettlr) to a PDF. Intended to concatenate notes into one file for print. A Build Descriptor File specifies how which markdown file is added.
 
-Status: In Development, adding things as I need/want them ;)
+Status: In Development, adding things as I need/want them ;)  
 Intend: Private use, feel free to use if it is useful for you too!  
 Entrypoint: `main.py`  
 

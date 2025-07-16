@@ -1,5 +1,5 @@
 ---
-title: "Sample 3: More advanced Topics"
+title: "Sample 3: More Advanced Topics"
 id: "20240728195936"
 ---
 

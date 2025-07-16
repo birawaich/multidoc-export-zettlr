@@ -1,6 +1,8 @@
 ---
-title: "Sample 1: Headings"
+title: "Sample 1: Basics"
 id: "20240728173317"
+source:
+- "Libary of Babel"
 ---
 
 This is Honestly how they all look like.
@@ -11,47 +13,21 @@ This is Honestly how they all look like.
 
 # Heading 1
 
-More text that I could not be bother to let ChatGPT create.
-
 ## Heading 2
-
-More text! And a formula!
-
-$$e^{i\pi}-1=0$$
 
 ### Heading 3
 
-Bullet Lists seem to be the workhorse of notes. This is how the look like!
+#### Heading 4
 
-- I have a list
-    - with a list in it
-    - it has some bullets
-        - and a sublist
-        - with
-        - more
-        - bullets
-    - but it closes
-- eventually
-    - might
-        - go
-            - in
-                - complet…
-                    - ...ely
-                    - or
-                    - so
-             
-...and since this is sample code meant to test out the document:
+##### Heading 5
 
-- This is another list
-- with a bullet
-	<!--and a comment that is complied! AHHH!-->
+###### Heading 6
 
-#### Special Characters
+More headings are not supported by Zettlr. And damn boy, you would be writting quite the book if you had to nest headings that deeply.
 
-<!--rendered as paragraph-->
+# Special Characters
 
 The following Unicode Characters are rendered! In brackets is what they are rendered as.
-
 
 -   → (`$\\rightarrow$`)
 -   ← (`$\leftarrow$`)
@@ -67,14 +43,24 @@ The following Unicode Characters are rendered! In brackets is what they are rend
 -   ⅓ (`$\sfrac{1}{3}$`)
 -   ± (`$\pm`)
 
-##### Heading 5
+# Bullet Lists
+Quite frankly, bullet lists are powering my notes.
 
-<!--rendered as subparagraph-->
-
-Aren't we all?
-
-######  Heading 6
-
-<!-- just rendered as text-->
-
-Deep down?
+- I have a list
+    - with a list in it
+    - it has some bullets
+        - and a sublist
+        - with
+        - more
+        - bullets
+    - but it closes
+- eventually
+    - might
+        - go
+            - in
+                - completely
+                    - to
+                        - infinity
+                            - and
+                                - beyond
+- Let's see if there is ever a use case for that…

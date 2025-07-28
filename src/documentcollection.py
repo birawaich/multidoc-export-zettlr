@@ -6,10 +6,42 @@ from src.builddescription import BuildDescription
 from src.builddescription import Section
 from src.singledocument import SingleDocument
 
-from src.functions import merge_documents
 from src.functions import set_metadata_merged
 from src.functions import compile_latex
 
+
+class SectionHeader:
+    """
+    Header between single documents within the document collection, specifies a section
+
+    Attributes
+    ----------
+    title: str
+        Title as it should be displayed
+    level: int
+        Level of the header: first level is 0, then increasing
+    """
+
+    def __init__(self,
+                 title: str,
+                 level: int=0):
+        assert level >= 0, f"Invalid level {level}. Must be >= 0."
+        self.title = title
+        self.level = level
+
+class SectionEnd:
+    """
+    Class to mark the end of a section.
+
+    Attributes
+    ----------
+    level: int
+        Leve of the section that ends now
+    """
+    def __init__(self,
+                 level: int=0):
+        assert level >= 0, f"Invalid level {level}. Must be >= 0."
+        self.level = level        
 
 class DocumentColllection:
     """Class to hold a collection incl. how it should be arranged"""
@@ -29,8 +61,8 @@ class DocumentColllection:
         self.builddescription: BuildDescription = None #holds build description
 
         # Run functions
-        self.load_builddescriptor()
-        self.check_builddescripton()
+        self._load_builddescriptor()
+        self._check_builddescripton()
 
         return
 
@@ -48,13 +80,14 @@ class DocumentColllection:
         SingleDocument.FILEPATH_OUTPUT = self.builddescription.filepath_destination
         SingleDocument.SHOW_TAGS = True
 
-        filenames = self.extract_filenames()
-        documents = []
-        for filename in filenames:
-            documents.append(SingleDocument(filename))
-        
+        # filenames = self._extract_filenames()
+        # documents = []
+        # for filename in filenames:
+        #     documents.append(SingleDocument(filename))
 
-        latex_total = merge_documents(documents=documents)
+        document_list = self._extract_documents()        
+
+        latex_total = self._merge_documents(documents=document_list)
         latex_total = set_metadata_merged(latex_total,
                                           author=self.builddescription.author_name,
                                           email=self.builddescription.author_email,
@@ -70,7 +103,7 @@ class DocumentColllection:
 
     ### PRIVATE
 
-    def load_builddescriptor(self):
+    def _load_builddescriptor(self):
         """attempts to load the builddescription from the path given during init.
         On error: raises errors"""
 
@@ -97,7 +130,7 @@ class DocumentColllection:
                   +" and changed the working directory to there.")
         return
     
-    def check_builddescripton(self):
+    def _check_builddescripton(self):
         """checks whether the values given in a builddescripton make sense
 
         also makes the filepaths absolute
@@ -131,8 +164,51 @@ class DocumentColllection:
         if DocumentColllection.verbose:
             print("Successfully checked that the Build Description is valid.")
         return
+    
+    def _extract_documents(self,
+                           entry_point: None|Section = None,
+                           level: int = 0) -> list[SingleDocument | SectionHeader | SectionEnd]:
+        """
+        Extract all files and sections as a flat list
 
-    def extract_filenames(self) -> list[str]:
+        Calls itself recursivly.
+
+        Parameters
+        ----------
+        entry_point: None | Section
+            where to start. If None is given, start at the very top
+        level: int
+            how deep in the hierachy the entry point is. If not supplied picks 0
+
+        Returns
+        -------
+        A list of SingleDocuments and SectionHeaders that describe how the document collection looks like (flat)
+        """
+        if entry_point is None:
+            entry_point = self.builddescription.include
+
+        documents = []
+        for elem in entry_point:
+            if isinstance(elem,str): #filenname
+                documents.append(SingleDocument(elem))
+            elif type(elem) == Section:
+                documents.append(SectionEnd(level=level))
+                documents.append(SectionHeader(title=elem.title,
+                                               level=level))
+                documents.extend(self._extract_documents(
+                    entry_point=elem.content,
+                    level=level+1
+                ))
+                documents.append(SectionEnd(level=level+1))
+            else:
+                raise NotImplementedError(f"Unkown Element Type {type(elem)}. PANIC!")
+
+        if level == 0 and DocumentColllection.verbose:
+            print(f"Extracted {len(documents)} documents and headers from the Build Descriptor.")
+
+        return documents
+
+    def _extract_filenames(self) -> list[str]:
         """Extract all files of the Build Description
         
         Calls the recursive function `extract_filenames_recursive` under the hood."""
@@ -141,7 +217,7 @@ class DocumentColllection:
             if type(elem) == str:
                 local_list.append(elem)
             elif type(elem) == Section:
-                local_list.extend(self.extract_filenames_recursive(elem))
+                local_list.extend(self._extract_filenames_recursive(elem))
             else:
                 warnings.warn(f"Unkown element in Section {type(elem)}. Ignoring it.")
 
@@ -150,7 +226,7 @@ class DocumentColllection:
 
         return local_list
         
-    def extract_filenames_recursive(self,
+    def _extract_filenames_recursive(self,
                                     section: Section) -> list[str]:
         """Recursive part of the function to collect all filenames"""
         local_list = []
@@ -159,9 +235,33 @@ class DocumentColllection:
             if type(elem) == str:
                 local_list.append(elem)
             elif type(elem) == Section:
-                local_list.extend(self.extract_filenames_recursive(elem))
+                local_list.extend(self._extract_filenames_recursive(elem))
             else:
                 warnings.warn(f"Unkown element in Section {type(elem)}. Ignoring it.")
 
         return local_list
 
+    def _merge_documents(self,
+                         documents: list[SingleDocument|SectionHeader|SectionEnd]) -> str:
+        """Merges a bunch of documents and section headers into a single latex stirng"""
+
+        concat = ''
+
+        for index, elem in enumerate(documents):
+            # extract elements
+            if isinstance(elem, SingleDocument):
+                concat += f"%DOCUMENT FROM {elem._filepath_source}\n"+elem.get_latex_text()
+            elif isinstance(elem, SectionHeader):
+                concat += f"\nSECTION {elem.title}\n"
+            elif isinstance(elem,SectionEnd):
+                concat += "\n\columnbreak\n\n"
+            else:
+                raise NotImplementedError(f"Cannot handle an element of type {elem} here. Please try again tomorrow.")
+
+        # put it into the tempalte
+        with open('template/template_outputfile.tex','r') as templatefile:
+            template_latex = templatefile.read()
+
+        merged = template_latex.replace('%%<content_placeholder>%%',concat)
+
+        return merged

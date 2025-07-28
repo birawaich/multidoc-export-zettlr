@@ -1,6 +1,7 @@
-from src.singledocument import SingleDocument
 import subprocess
 import os
+
+from src.singledocument import SingleDocument
 
 def compile_latex(latex_content: str
                 , output_directory: str='out'
@@ -61,31 +62,6 @@ def compile_latex(latex_content: str
         print(f"An error occurred: {e}")
         os.chdir(old_working_directory)
         return None
-
-
-def merge_documents(documents: list[SingleDocument]) -> str:
-    """Merges a bunch of documents into a single latex stirng"""
-
-    concat = ''
-
-    for document in documents:
-        latex = document.get_latex_text()
-
-        # wrap it into a minipage
-        # latex = "\\begin{minipage}{\columnwidth}\n"\
-        #     + latex +"\n"\
-        #     + "\end{minipage}\n"
-        
-        # concatenate it
-        concat += latex
-
-    # put it into the tempalte
-    with open('template/template_outputfile.tex','r') as templatefile:
-        template_latex = templatefile.read()
-
-    merged = template_latex.replace('%%<content_placeholder>%%',concat)
-
-    return merged
 
 def set_metadata_merged(text: str,
                          author:str,

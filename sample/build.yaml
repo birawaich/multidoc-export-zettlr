@@ -10,14 +10,19 @@ include: [
         title: "Supersection 1",
         content: [
             "sample2.md",
-            "sample3.md"
         ]
     },
     !Section {
         title: "Supersection 2",
         content: [
+            "sample3.md",
+            !Section {
+                title: "Nested Section!",
+                content: [
+                    "../sample_alternativesource/distributed-gradient-descent.md"
+                ]
+            },
             "sample4.md",
-            "../sample_alternativesource/distributed-gradient-descent.md"
         ]
     }
 ]

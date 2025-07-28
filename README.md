@@ -79,4 +79,6 @@ Handling images is tricky due to different image locations as well as image heig
 -   Nice To Have
     -   [ ] Installation Guide (if anyone needs it incl. myself)
     -   [ ] Proper Licensing
+    -   [ ] Sources in metadata displayed (maybe in scriptsize)
+    -   [ ] Export short summaries as Anki cars
 

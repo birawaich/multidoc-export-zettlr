@@ -32,7 +32,9 @@ This Reference points outside! [[20240315122442]] Secrets
     - [ ] even if indented
     - [x] and checked
 
-### Headers that need a Math Environment like $\mathcal{O}$ or are hideously long - seriously, who does this? & uses awful characters
+### Super long headers are supported - for folks spelling out Constrained Finite Time Optimal Control (CFTOC) Problem
+
+### Headers that need a Math Environment like $\mathcal{O}$ and are hideously long? Not so much due to limitations of `uline`
 
 # Emojis!🎉
 

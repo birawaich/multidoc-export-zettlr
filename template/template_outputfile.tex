@@ -9,7 +9,7 @@
 \usepackage{hyperref} %references
 \usepackage{longtable,booktabs} %rables
 \usepackage{graphicx} %pictures
-\usepackage[normalem]{ulem} %strikeout
+\usepackage[normalem]{ulem} %strikeout and better wrapping
 \usepackage{amssymb} %math
 \usepackage{amsmath}
 \DeclareMathOperator*{\argmax}{arg\,max} %argmin operator operator
@@ -90,7 +90,7 @@
 %custom date format
 \usepackage[english]{datetime2}
 
-%custom title sections
+%custom title sections --> while not directly used, they serve as fallback
 \usepackage[compact]{titlesec}
 \titleformat{\section}
     {\bfseries}         % Format: size and style
@@ -163,14 +163,14 @@
     \else
         \addcontentsline{toc}{subparagraph}{#2}%
     \fi
-    \vspace{1em}
+    \vspace{0.5ex}
     \par\noindent
     \colorbox{multidocsection}{%
         \makebox[\dimexpr\linewidth-10pt\relax][l]{%
             \textbf{#2}%
         }%
     }%
-    \par\vspace{1em}
+    \par\vspace{05ex}
 }
 % Title of of a Markdown File
 % #1 ... depth, as an increasing int from 0
@@ -187,44 +187,48 @@
     \else
         \addcontentsline{toc}{subparagraph}{#2}%
     \fi
-    \vspace{1em}
+    \vspace{2ex}
     \par\noindent
     \colorbox{zettlrdocument}{%
         \makebox[\dimexpr\linewidth-10pt\relax][l]{%
             \textbf{#2}%
         }%
     }%
-    \par\vspace{1em}
+    \par\vspace{1ex}
 }
 % Section ect. within Single Documents
 \newcommand{\mezdocsection}[1]{%
   \par\vspace{1.5ex}%
-  {\bfseries\hspace{6.9mm}\guilsinglright\guilsinglright\guilsinglright\hspace{0.3em}\underline{#1}}\par
-  \vspace{0.5ex}%
+  {\bfseries\hspace{6.9mm}\guilsinglright\guilsinglright\guilsinglright\hspace{0.3em}
+  \uline{#1}}
+  \par\vspace{0.5ex}%
 }
 \newcommand{\mezdocsubsection}[1]{%
   \par\vspace{1.2ex}%
-  {\bfseries\hspace{13.8mm}\guilsinglright\guilsinglright\hspace{0.3em}\underline{#1}}\par
+  {\bfseries\hspace{13.8mm}\guilsinglright\guilsinglright\hspace{0.3em}
+  \uline{#1}}\par
   \vspace{0.4ex}%
 }
 \newcommand{\mezdocsubsubsection}[1]{%
   \par\vspace{1ex}%
-  {\bfseries\hspace{20.7mm}\guilsinglright\hspace{0.3em}\underline{#1}}\par
+  {\bfseries\hspace{20.7mm}\guilsinglright\hspace{0.3em}
+  \uline{#1}}\par
   \vspace{0.3ex}%
 }
 \newcommand{\mezdocparagraph}[1]{%
   \par\vspace{0.8ex}%
-  {\bfseries\hspace{20.7mm}\hspace{\widthof{\guilsinglright}}\hspace{0.3em}\underline{#1}}\par
+  {\bfseries\hspace{20.7mm}\hspace{\widthof{\guilsinglright}}\hspace{0.3em}
+  \uline{#1}}\par
   \vspace{0.3ex}%
 }
 \newcommand{\mezdocsubparagraph}[1]{%
   \par\vspace{0.5ex}%
-  {\bfseries\underline{#1}}\par
+  {\bfseries\uline{#1}}\par
   \vspace{0.2ex}%
 }
 \newcommand{\mezdoclevelsix}[1]{%
   \par\vspace{0.5ex}%
-  {\underline{#1}}\par
+  {\uline{#1}}\par
   \vspace{0.2ex}%
 }
 % Internal Reference (replacing `[[14DIGITUUID]]`)

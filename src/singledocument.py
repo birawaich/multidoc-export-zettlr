@@ -204,8 +204,7 @@ class SingleDocument:
         converted = pypandoc.convert_text(source=self._markdown_mod, to='latex',format='md'
                                           ,filters=['pandocs_filters/curdir-reference-path-resources.lua'
                                                     ,'pandocs_filters/set_graphics_width.lua'
-                                                    ,'pandocs_filters/mod-reference-path-resources.lua',
-                                                    'pandocs_filters/custom_headers.lua']
+                                                    ,'pandocs_filters/mod-reference-path-resources.lua',]
                                         ,extra_args=[]) 
         #wirte '--standalone' to see full latex output
 
@@ -243,6 +242,23 @@ class SingleDocument:
                 header += "\\label{"+id+"}\n\n"
 
         converted = header + self._latex_raw
+
+        # convert headers of document to custom headers
+        """
+        Motivation/Background
+        wanted to do with lua filter, but need to handle math mode ect. manually
+        (as pandocs.write is not available), this is cleaner
+        See `custom_headers.lua` for the working (and unused) filter.
+        """
+        header_map = {
+            r'\\section{': r'\\mezdocsection{',
+            r'\\subsection{': r'\\mezdocsubsection{',
+            r'\\subsubsection{': r'\\mezdocsubsubsection{',
+            r'\\paragraph{': r'\\mezdocparagraph{',
+            r'\\subparagraph{': r'\\mezdocsubparagraph{',
+        }
+        for orig, custom in header_map.items():
+            converted = re.sub(orig, custom, converted)
 
         # scale images to \columnwidth in case there is no width yet
         converted = self._add_width_to_includegraphics(converted)

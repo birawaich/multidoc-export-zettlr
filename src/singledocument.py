@@ -75,20 +75,23 @@ class SingleDocument:
         self._read_markdown_text()
         return self._modify_markdown()
     
-    def get_latex_text(self) -> str:
+    def get_latex_text(self,
+                       level: int=0) -> str:
         """return the latex text of this document
         
-        loads and converts it if needed"""
+        loads and converts it if needed
+        
+        Can convert it as if it is on a certain level, 0 by default"""
 
         if self._latex_mod is not None:
             return self._latex_mod
         
         if self._latex_raw is not None:
-            return self._modify_latex()
+            return self._modify_latex(level)
         
         self.get_markdown_text() #get and modify markdown
         self._convert_to_latex()
-        return self._modify_latex()
+        return self._modify_latex(level)
 
     
     ### PRIVATE
@@ -201,15 +204,24 @@ class SingleDocument:
         converted = pypandoc.convert_text(source=self._markdown_mod, to='latex',format='md'
                                           ,filters=['pandocs_filters/curdir-reference-path-resources.lua'
                                                     ,'pandocs_filters/set_graphics_width.lua'
-                                                    ,'pandocs_filters/mod-reference-path-resources.lua']
-                                        ,extra_args=[]) #wirte '--standalone' to see full latex output
+                                                    ,'pandocs_filters/mod-reference-path-resources.lua',
+                                                    'pandocs_filters/custom_headers.lua']
+                                        ,extra_args=[]) 
+        #wirte '--standalone' to see full latex output
 
         self._latex_raw = converted
 
         return converted
     
-    def _modify_latex(self) -> str:
-        """Modifies the raw latex string, stores it, and returns it"""
+    def _modify_latex(self,
+                      level: int) -> str:
+        """Modifies the raw latex string, stores it, and returns it
+        
+        Parameters
+        ----------
+        level: int
+            level of this document (to be redered as such, doesn't make sense in the class, hence this is a parameter)
+        """
         if SingleDocument.VERBOSE:
             print("Modifying raw latex of file "+self._filename+"...")
 
@@ -224,7 +236,7 @@ class SingleDocument:
             metadata: dict = self._metadata
             if "title" in metadata:
                 title_str = unicode_to_latex(metadata["title"]) #escape text to be LaTex safe
-                header += "\\mezdoctitle{"+title_str+"}\n\n"
+                header += "\\mezdoctitle{"+str(level)+"}{"+title_str+"}\n\n"
             if "id" in metadata:
                 # add label for references from ID
                 id = self._label_from_id(str(metadata["id"]))

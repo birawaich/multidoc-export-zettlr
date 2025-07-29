@@ -246,11 +246,12 @@ class DocumentColllection:
         """Merges a bunch of documents and section headers into a single latex stirng"""
 
         concat = ''
-
-        for index, elem in enumerate(documents):
+        current_level = 0
+        for elem in documents:
             # extract elements
             if isinstance(elem, SingleDocument):
-                concat += f"%DOCUMENT FROM {elem._filepath_source}\n"+elem.get_latex_text()
+                concat += f"% DOCUMENT FROM {elem._filepath_source}\n"\
+                    +elem.get_latex_text(level=current_level)
             elif isinstance(elem, SectionHeader):
                 concat += f"\nSECTION {elem.title}\n"
             elif isinstance(elem,SectionEnd):

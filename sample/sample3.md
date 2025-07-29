@@ -27,7 +27,7 @@ This Reference points outside! [[20240315122442]] Secrets
 
 ## What about $\lambda > 0$?
 
-- [ ] Check if Latex in title works
+- [x] Check if Latex in title works
 - [ ] Check if To Do list work
     - [ ] even if indented
     - [x] and checked

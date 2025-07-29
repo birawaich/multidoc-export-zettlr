@@ -4,6 +4,7 @@
 \usepackage{multicol}
 \usepackage{float} %figures in multicol
 \usepackage{xcolor} %color
+\usepackage{etoolbox} %fancy if else statements for custom commands
 
 \usepackage{hyperref} %references
 \usepackage{longtable,booktabs} %rables
@@ -78,7 +79,7 @@
 \setlength{\parskip}{0.42em}
 
 % make document compact		
-\usepackage[compact]{titlesec}
+% \usepackage[compact]{titlesec}
 % \titlespacing{\section}{0pt}{*0}{*0}
 % \titlespacing{\subsection}{0pt}{*0}{*0}
 % \titlespacing{\subsubsection}{0pt}{*0}{*0}
@@ -90,7 +91,7 @@
 \usepackage[english]{datetime2}
 
 %custom title sections
-\usepackage{titlesec}
+\usepackage[compact]{titlesec}
 \titleformat{\section}
     {\bfseries}         % Format: size and style
     {\hspace{6.9mm}\guilsinglright\guilsinglright\guilsinglright}     % Section number format
@@ -116,6 +117,38 @@
     {}
     {0.3em}
     {}
+
+% Section ect. within Documents
+\newcommand{\mezdocsection}[1]{%
+  \par\vspace{1.5ex}%
+  {\bfseries\hspace{6.9mm}\guilsinglright\guilsinglright\guilsinglright\hspace{0.3em}\underline{#1}}\par
+  \vspace{0.5ex}%
+}
+\newcommand{\mezdocsubsection}[1]{%
+  \par\vspace{1.2ex}%
+  {\bfseries\hspace{13.8mm}\guilsinglright\guilsinglright\hspace{0.3em}\underline{#1}}\par
+  \vspace{0.4ex}%
+}
+\newcommand{\mezdocsubsubsection}[1]{%
+  \par\vspace{1ex}%
+  {\bfseries\hspace{20.7mm}\guilsinglright\hspace{0.3em}\underline{#1}}\par
+  \vspace{0.3ex}%
+}
+\newcommand{\mezdocparagraph}[1]{%
+  \par\vspace{0.8ex}%
+  {\bfseries\hspace{20.7mm}\hspace{\widthof{\guilsinglright}}\hspace{0.3em}\underline{#1}}\par
+  \vspace{0.3ex}%
+}
+\newcommand{\mezdocsubparagraph}[1]{%
+  \par\vspace{0.5ex}%
+  {\bfseries\underline{#1}}\par
+  \vspace{0.2ex}%
+}
+\newcommand{\mezdoclevelsix}[1]{%
+  \par\vspace{0.5ex}%
+  {\underline{#1}}\par
+  \vspace{0.2ex}%
+}
 
 
 % define some colors
@@ -148,22 +181,33 @@
 % Custom Commands (prefixed with mez)
 
 % Title of of a Markdown File
-\newcommand{\mezdoctitle}[1]{%
-	\par\noindent
-	\colorbox{zettlrdocument}{%
-		\makebox[\dimexpr\linewidth-10pt\relax][l]{% remove the column seperation withd
-			\textbf{#1}
-		}
-	}
+% #1 ... depth, as an increasing int from 0
+% #2 ... actual title, to be printed visibly
+\newcommand{\mezdoctitle}[2]{%
+    \ifcase#1
+        \addcontentsline{toc}{section}{#2}%
+    \or
+        \addcontentsline{toc}{subsection}{#2}%
+    \or
+        \addcontentsline{toc}{subsubsection}{#2}%
+    \or
+        \addcontentsline{toc}{paragraph}{#2}%
+    \else
+        \addcontentsline{toc}{subparagraph}{#2}%
+    \fi
+    \vspace{1em}
+    \par\noindent
+    \colorbox{zettlrdocument}{%
+        \makebox[\dimexpr\linewidth-10pt\relax][l]{%
+            \textbf{#2}%
+        }%
+    }%
+    \par\vspace{1em}
 }
 % Internal Reference (replacing `[[14DIGITUUID]]`)
 \newcommand{\mezintreference}[0]{%
 	\textcolor{linkinternal}{$\hookrightarrow$}
 }
-
-% Commands for Sections
-
-
 
 %%% META
 \title{%%<TITLE>%%}
@@ -195,6 +239,8 @@
             for \href{https://www.zettlr.com/}{Zettlr}}\par}
 		\makeatother        
         \vspace{6.9pt}
+
+        \tableofcontents
 
 		%%<content_placeholder>%%
 

@@ -192,7 +192,6 @@ class DocumentColllection:
             if isinstance(elem,str): #filenname
                 documents.append(SingleDocument(elem))
             elif type(elem) == Section:
-                documents.append(SectionEnd(level=level))
                 documents.append(SectionHeader(title=elem.title,
                                                level=level))
                 documents.extend(self._extract_documents(
@@ -255,13 +254,13 @@ class DocumentColllection:
                     +elem.get_latex_text(level=current_level)
             elif isinstance(elem, SectionHeader):
                 # print(f"Adding SectionHeader {elem.title} at level {current_level}.")
+                concat += "\n\n\columnbreak\n"
                 concat += f"% SECTION {elem.title}\n"\
                     +"\mezsectiontitle{"+str(current_level)+"}{"+elem.title+"}"
                 current_level += 1
             elif isinstance(elem,SectionEnd):
                 # print(f"Adding SectionEnd")
-                concat += "\n\columnbreak\n\n"
-                current_level = max(0,current_level-1)
+                current_level = current_level-1
             else:
                 raise NotImplementedError(f"Cannot handle an element of type {elem} here. Please try again tomorrow.")
 

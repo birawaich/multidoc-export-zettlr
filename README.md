@@ -65,14 +65,14 @@ Handling images is tricky due to different image locations as well as image heig
 
  ## To Do
 
--   [ ] Support Hierarchy
+-   [x] Support Hierarchy
     Currently the hierarchy in the build descriptor file is ignored.
 -   Proper Table of Contents
-    -   [ ] Printed
-    -   [ ] Of PDF (currently it is a bit something)
+    -   [x] Printed
+    -   [ ] Of PDF (currently it is a bit something) --> it works with sample,but not with some examples. Probably hyperref doesn't get the levels?
 -   Touch Up on Template
     -   [ ] Footer/Header
-    -   [ ] Handle wrapping of titles
+    -   [ ] Handle wrapping of titles --> did for titles within documents, not document or section titles yet
 -   [ ] Support exporting online short summaries
 -   [ ] Remove Legacy Workbench
 

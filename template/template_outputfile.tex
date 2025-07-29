@@ -118,7 +118,85 @@
     {0.3em}
     {}
 
-% Section ect. within Documents
+% define some colors
+\definecolor{multidocsection}{RGB}{199, 199, 199}
+\definecolor{zettlrdocument}{RGB}{222, 222, 222}
+\definecolor{linkinternal}{RGB}{0, 0, 222}
+\definecolor{tagquestion}{RGB}{124, 146, 216}
+\definecolor{tagtodo}{RGB}{255, 154, 47}
+\definecolor{tagunknown}{RGB}{80, 222, 136}
+
+% todo notes
+\usepackage[distanceNotesPageBorder=0cm,
+    minNoteWidth=0cm,
+    colorinlistoftodos]{luatodonotes}
+%without these values there would be some error - alternatively the page margins can be increased cf. https://mirror.foobar.to/CTAN/macros/luatex/latex/luatodonotes/luatodonotes.pdf
+
+%%% COMMANDS
+
+%ISO 8601 Date
+\DTMnewdatestyle{dashdate}{%
+  \renewcommand{\DTMdisplaydate}[4]{\number##1-\DTMenglishshortmonthname{##2}-\number##3}%
+  \renewcommand{\DTMDisplaydate}{\DTMdisplaydate}%
+}
+% "supporting" \Kappa which is just a capital K
+\newcommand{\Kappa}{K}
+
+% Commands from default Pandoc Latex Template
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Custom Commands (prefixed with mez)
+
+% Title of of a Section
+% #1 ... depth, as an increasing int from 0
+% #2 ... actual title, to be printed visibly
+\newcommand{\mezsectiontitle}[2]{%
+    \ifcase#1
+        \addcontentsline{toc}{section}{#2}%
+    \or
+        \addcontentsline{toc}{subsection}{#2}%
+    \or
+        \addcontentsline{toc}{subsubsection}{#2}%
+    \or
+        \addcontentsline{toc}{paragraph}{#2}%
+    \else
+        \addcontentsline{toc}{subparagraph}{#2}%
+    \fi
+    \vspace{1em}
+    \par\noindent
+    \colorbox{multidocsection}{%
+        \makebox[\dimexpr\linewidth-10pt\relax][l]{%
+            \textbf{#2}%
+        }%
+    }%
+    \par\vspace{1em}
+}
+% Title of of a Markdown File
+% #1 ... depth, as an increasing int from 0
+% #2 ... actual title, to be printed visibly
+\newcommand{\mezdoctitle}[2]{%
+    \ifcase#1
+        \addcontentsline{toc}{section}{#2}%
+    \or
+        \addcontentsline{toc}{subsection}{#2}%
+    \or
+        \addcontentsline{toc}{subsubsection}{#2}%
+    \or
+        \addcontentsline{toc}{paragraph}{#2}%
+    \else
+        \addcontentsline{toc}{subparagraph}{#2}%
+    \fi
+    \vspace{1em}
+    \par\noindent
+    \colorbox{zettlrdocument}{%
+        \makebox[\dimexpr\linewidth-10pt\relax][l]{%
+            \textbf{#2}%
+        }%
+    }%
+    \par\vspace{1em}
+}
+% Section ect. within Single Documents
 \newcommand{\mezdocsection}[1]{%
   \par\vspace{1.5ex}%
   {\bfseries\hspace{6.9mm}\guilsinglright\guilsinglright\guilsinglright\hspace{0.3em}\underline{#1}}\par
@@ -148,61 +226,6 @@
   \par\vspace{0.5ex}%
   {\underline{#1}}\par
   \vspace{0.2ex}%
-}
-
-
-% define some colors
-\definecolor{zettlrdocument}{RGB}{222, 222, 222}
-\definecolor{linkinternal}{RGB}{0, 0, 222}
-\definecolor{tagquestion}{RGB}{124, 146, 216}
-\definecolor{tagtodo}{RGB}{255, 154, 47}
-\definecolor{tagunknown}{RGB}{80, 222, 136}
-
-% todo notes
-\usepackage[distanceNotesPageBorder=0cm,
-    minNoteWidth=0cm,
-    colorinlistoftodos]{luatodonotes}
-%without these values there would be some error - alternatively the page margins can be increased cf. https://mirror.foobar.to/CTAN/macros/luatex/latex/luatodonotes/luatodonotes.pdf
-
-%%% COMMANDS
-
-%ISO 8601 Date
-\DTMnewdatestyle{dashdate}{%
-  \renewcommand{\DTMdisplaydate}[4]{\number##1-\DTMenglishshortmonthname{##2}-\number##3}%
-  \renewcommand{\DTMDisplaydate}{\DTMdisplaydate}%
-}
-% "supporting" \Kappa which is just a capital K
-\newcommand{\Kappa}{K}
-
-% Commands from default Pandoc Latex Template
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-% Custom Commands (prefixed with mez)
-
-% Title of of a Markdown File
-% #1 ... depth, as an increasing int from 0
-% #2 ... actual title, to be printed visibly
-\newcommand{\mezdoctitle}[2]{%
-    \ifcase#1
-        \addcontentsline{toc}{section}{#2}%
-    \or
-        \addcontentsline{toc}{subsection}{#2}%
-    \or
-        \addcontentsline{toc}{subsubsection}{#2}%
-    \or
-        \addcontentsline{toc}{paragraph}{#2}%
-    \else
-        \addcontentsline{toc}{subparagraph}{#2}%
-    \fi
-    \vspace{1em}
-    \par\noindent
-    \colorbox{zettlrdocument}{%
-        \makebox[\dimexpr\linewidth-10pt\relax][l]{%
-            \textbf{#2}%
-        }%
-    }%
-    \par\vspace{1em}
 }
 % Internal Reference (replacing `[[14DIGITUUID]]`)
 \newcommand{\mezintreference}[0]{%

@@ -32,6 +32,8 @@ This Reference points outside! [[20240315122442]] Secrets
     - [ ] even if indented
     - [x] and checked
 
+### Headers that need a Math Environment like $\mathcal{O}$ or are hideously long - seriously, who does this? & uses awful characters
+
 # Emojis!🎉
 
 What was missing?🕵️
